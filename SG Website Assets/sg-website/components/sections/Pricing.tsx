@@ -100,7 +100,7 @@ export default function Pricing() {
           <h2
             style={{
               fontFamily: 'var(--font-family-display)',
-              fontSize: 'clamp(36px, 5.5vw, 64px)',
+              fontSize: 'var(--text-section)',
               color: '#F2EAE4',
               lineHeight: 1.05,
               marginBottom: '12px',
@@ -187,6 +187,7 @@ export default function Pricing() {
                 style={{ height: '100%' }}
               >
                 <div
+                  className={isFeatured ? '' : 'card-hover'}
                   style={{
                     background: isFeatured
                       ? 'var(--gradient-blaze-fade), #141012'
@@ -353,6 +354,7 @@ export default function Pricing() {
           {addOns.map((addOn) => (
             <ScrollReveal key={addOn.name} delay={0.05}>
               <div
+                className="card-hover"
                 style={{
                   backgroundColor: '#141012',
                   border: '1px solid #1E181C',
@@ -414,6 +416,7 @@ export default function Pricing() {
                 <a
                   href="mailto:hello@storygrid.co"
                   data-interactive
+                  className="link-underline"
                   style={{
                     fontFamily: 'var(--font-family-condensed)',
                     fontSize: '14px',
@@ -454,10 +457,10 @@ export default function Pricing() {
             <a
               href="mailto:hello@storygrid.co"
               data-interactive
+              className="link-underline"
               style={{
                 color: '#C4A08A',
-                textDecoration: 'underline',
-                textUnderlineOffset: '3px',
+                textDecoration: 'none',
                 transition: 'color 200ms ease',
               }}
               onMouseEnter={(e) => {

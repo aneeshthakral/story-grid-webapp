@@ -142,7 +142,7 @@ export default function ContactForm() {
               <h2
                 style={{
                   fontFamily: 'var(--font-family-display)',
-                  fontSize: 'clamp(36px, 5vw, 56px)',
+                  fontSize: 'var(--text-section)',
                   color: '#F2EAE4',
                   marginBottom: '16px',
                   lineHeight: 1.05,
@@ -189,7 +189,7 @@ export default function ContactForm() {
                   <h2
                     style={{
                       fontFamily: 'var(--font-family-display)',
-                      fontSize: 'clamp(36px, 5vw, 56px)',
+                      fontSize: 'var(--text-section)',
                       color: '#F2EAE4',
                       lineHeight: 1.05,
                       marginBottom: '40px',

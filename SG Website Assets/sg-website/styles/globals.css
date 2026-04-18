@@ -42,6 +42,11 @@
   --color-body-light: #3A2820;
   --color-caption-light: #685040;
 
+  /* Type scale — fluid headline sizes */
+  --text-hero: clamp(3rem, 6vw + 1rem, 5rem);
+  --text-section: clamp(2rem, 4vw + 0.5rem, 3.75rem);
+  --text-card: clamp(1.25rem, 1.5vw + 0.75rem, 1.625rem);
+
   /* Font families — populated via next/font CSS variable injection */
   --font-family-display: var(--font-bebas-neue), 'Arial Narrow', sans-serif;
   --font-family-body: var(--font-barlow), system-ui, sans-serif;
@@ -161,13 +166,26 @@ body::before {
 }
 
 /* ─────────────────────────────────────────
-   LINK UNDERLINE ANIMATION
+   HOVER UTILITIES
    ───────────────────────────────────────── */
-.link-underline {
-  position: relative;
-  display: inline-block;
+.btn-ember {
+  transition: background-color 200ms ease;
+}
+.btn-ember:hover {
+  background: #FF6B2B;
 }
 
+.card-hover {
+  transition: background-color 250ms ease, border-color 250ms ease;
+}
+.card-hover:hover {
+  background: #2A2119;
+  border-color: rgba(232, 93, 26, 0.25);
+}
+
+.link-underline {
+  position: relative;
+}
 .link-underline::after {
   content: '';
   position: absolute;
@@ -175,10 +193,9 @@ body::before {
   left: 0;
   width: 0;
   height: 1px;
-  background-color: currentColor;
+  background: currentColor;
   transition: width 250ms ease;
 }
-
 .link-underline:hover::after {
   width: 100%;
 }

@@ -36,8 +36,22 @@ export default function Home() {
         {/* S3 — What We Build: dark, cool-atmosphere */}
         <WhatWeBuild />
 
+        {/* Dark → Cream transition */}
+        <div
+          className="h-16 md:h-24"
+          style={{ background: 'linear-gradient(to bottom, #0F0B09, #F5EDE4)' }}
+          aria-hidden="true"
+        />
+
         {/* S4 — How We Work: CREAM, section-break bg */}
         <HowWeWork />
+
+        {/* Cream → Dark transition */}
+        <div
+          className="h-16 md:h-24"
+          style={{ background: 'linear-gradient(to bottom, #F5EDE4, #0F0B09)' }}
+          aria-hidden="true"
+        />
 
         {/* S5 — Results: dark, infrared-wash */}
         <Results />
@@ -45,8 +59,22 @@ export default function Home() {
         {/* S6 — Pricing: dark, blaze-fade behind featured card */}
         <Pricing />
 
+        {/* Dark → Cream transition */}
+        <div
+          className="h-16 md:h-24"
+          style={{ background: 'linear-gradient(to bottom, #0F0B09, #F5EDE4)' }}
+          aria-hidden="true"
+        />
+
         {/* S7 — Founder: CREAM, light-card bg */}
         <Founder />
+
+        {/* Cream → Dark transition */}
+        <div
+          className="h-16 md:h-24"
+          style={{ background: 'linear-gradient(to bottom, #F5EDE4, #0F0B09)' }}
+          aria-hidden="true"
+        />
 
         {/* S8 — CTA Banner: dark, dual-temperature + infrared-wash */}
         <CTABanner />

@@ -6,6 +6,7 @@
 
 import { motion, useReducedMotion } from 'framer-motion'
 import SectionLabel from '@/components/ui/SectionLabel'
+import ScrollReveal from '@/components/ui/ScrollReveal'
 
 const painPoints = [
   {
@@ -111,52 +112,42 @@ export default function Problem() {
           }}
         >
           {painPoints.map((card, i) => (
-            <motion.div
-              key={card.title}
-              custom={i}
-              variants={cardVariants}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true, margin: '-80px' }}
-              style={{
-                backgroundColor: '#141012',
-                border: '1px solid #1E181C',
-                borderLeft: '2px solid #E8451A',
-                padding: '32px',
-                height: '100%',
-                display: 'flex',
-                flexDirection: 'column',
-                transition: 'background 200ms ease',
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.backgroundColor = '#1E181C'
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.backgroundColor = '#141012'
-              }}
-            >
-              <h3
+            <ScrollReveal key={card.title} delay={i * 0.08}>
+              <div
+                className="card-hover"
                 style={{
-                  fontFamily: 'var(--font-family-display)',
-                  fontSize: '28px',
-                  color: '#F2EAE4',
-                  marginBottom: '16px',
-                  textWrap: 'balance',
-                } as React.CSSProperties}
-              >
-                {card.title}
-              </h3>
-              <p
-                style={{
-                  fontFamily: 'var(--font-family-body)',
-                  fontSize: '16px',
-                  color: '#C4A08A',
-                  lineHeight: 1.7,
+                  backgroundColor: '#141012',
+                  border: '1px solid #1E181C',
+                  borderLeft: '2px solid #E8451A',
+                  padding: '32px',
+                  height: '100%',
+                  display: 'flex',
+                  flexDirection: 'column',
                 }}
               >
-                {card.body}
-              </p>
-            </motion.div>
+                <h3
+                  style={{
+                    fontFamily: 'var(--font-family-display)',
+                    fontSize: '28px',
+                    color: '#F2EAE4',
+                    marginBottom: '16px',
+                    textWrap: 'balance',
+                  } as React.CSSProperties}
+                >
+                  {card.title}
+                </h3>
+                <p
+                  style={{
+                    fontFamily: 'var(--font-family-body)',
+                    fontSize: '16px',
+                    color: '#C4A08A',
+                    lineHeight: 1.7,
+                  }}
+                >
+                  {card.body}
+                </p>
+              </div>
+            </ScrollReveal>
           ))}
         </div>
       </div>

@@ -48,7 +48,7 @@ export default function Founder() {
           <h2
             style={{
               fontFamily: 'var(--font-family-display)',
-              fontSize: 'clamp(36px, 5.5vw, 64px)',
+              fontSize: 'var(--text-section)',
               color: '#181012',
               lineHeight: 1.05,
               marginBottom: '64px',
@@ -111,7 +111,7 @@ export default function Founder() {
           </motion.div>
 
           {/* Right — Bio */}
-          <ScrollReveal direction="right" delay={0.15}>
+          <ScrollReveal delay={0.15}>
             <div style={{ minWidth: 0 }}>
               <h3
                 style={{

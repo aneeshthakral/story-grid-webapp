@@ -65,7 +65,7 @@ export default function Results() {
           <h2
             style={{
               fontFamily: 'var(--font-family-display)',
-              fontSize: 'clamp(36px, 5.5vw, 64px)',
+              fontSize: 'var(--text-section)',
               color: '#F2EAE4',
               lineHeight: 1.05,
               marginBottom: '64px',

@@ -19,12 +19,13 @@ import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import SectionLabel from '@/components/ui/SectionLabel'
 import Button from '@/components/ui/Button'
+import HeroAmbient from '@/components/ui/HeroAmbient'
 
 gsap.registerPlugin(ScrollTrigger)
 
 const BOOKING_URL = 'https://topmate.io/aneeshthakral/'
 
-const HEADLINE = 'The Story Is the Strategy.'
+const HEADLINE = 'We set the narrative right.'
 
 // Split headline into characters for stagger animation
 function AnimatedHeadline({
@@ -36,7 +37,7 @@ function AnimatedHeadline({
 }) {
   const headlineStyle: React.CSSProperties = {
     fontFamily: 'var(--font-family-display)',
-    fontSize: 'clamp(52px, 8.8vw, 88px)',
+    fontSize: 'var(--text-hero)',
     color: '#F2EAE4',
     lineHeight: 1.0,
     marginBottom: '24px',
@@ -152,7 +153,6 @@ export default function Hero() {
   const shouldReduceMotion = useReducedMotion()
   const [scrolled, setScrolled] = useState(false)
   const sectionRef = useRef<HTMLDivElement>(null)
-  const canvasRef = useRef<HTMLCanvasElement>(null)
 
   // Framer Motion scroll-based opacity fade
   const { scrollY } = useScroll()
@@ -175,84 +175,6 @@ export default function Hero() {
     })
     return () => trigger.kill()
   }, [shouldReduceMotion])
-
-  // Canvas particle mesh — 30 nodes, blaze colour, reduced-motion aware
-  useEffect(() => {
-    const canvas = canvasRef.current
-    if (!canvas) return
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
-
-    const ctx = canvas.getContext('2d')
-    if (!ctx) return
-
-    let animFrame: number
-
-    const setSize = () => {
-      canvas.width = canvas.offsetWidth
-      canvas.height = canvas.offsetHeight
-    }
-    setSize()
-
-    const nodes = Array.from({ length: 30 }, () => ({
-      x: Math.random() * canvas.width,
-      y: Math.random() * canvas.height,
-      vx: (Math.random() - 0.5) * 0.3,
-      vy: (Math.random() - 0.5) * 0.3,
-    }))
-
-    const draw = () => {
-      ctx.clearRect(0, 0, canvas.width, canvas.height)
-
-      for (let i = 0; i < nodes.length; i++) {
-        // Connections
-        for (let j = i + 1; j < nodes.length; j++) {
-          const dx = nodes[i].x - nodes[j].x
-          const dy = nodes[i].y - nodes[j].y
-          const dist = Math.sqrt(dx * dx + dy * dy)
-          if (dist < 150) {
-            ctx.beginPath()
-            ctx.moveTo(nodes[i].x, nodes[i].y)
-            ctx.lineTo(nodes[j].x, nodes[j].y)
-            ctx.strokeStyle = 'rgba(232,69,26,0.06)'
-            ctx.lineWidth = 1
-            ctx.stroke()
-          }
-        }
-
-        // Node dot
-        ctx.beginPath()
-        ctx.arc(nodes[i].x, nodes[i].y, 2, 0, Math.PI * 2)
-        ctx.fillStyle = 'rgba(232,69,26,0.15)'
-        ctx.fill()
-
-        // Update
-        nodes[i].x += nodes[i].vx
-        nodes[i].y += nodes[i].vy
-
-        // Bounce
-        if (nodes[i].x < 0 || nodes[i].x > canvas.width) nodes[i].vx *= -1
-        if (nodes[i].y < 0 || nodes[i].y > canvas.height) nodes[i].vy *= -1
-      }
-
-      animFrame = requestAnimationFrame(draw)
-    }
-
-    draw()
-
-    const handleResize = () => {
-      setSize()
-      nodes.forEach((n) => {
-        n.x = Math.min(n.x, canvas.width)
-        n.y = Math.min(n.y, canvas.height)
-      })
-    }
-    window.addEventListener('resize', handleResize)
-
-    return () => {
-      cancelAnimationFrame(animFrame)
-      window.removeEventListener('resize', handleResize)
-    }
-  }, [])
 
   useEffect(() => {
     const handleScroll = () => {
@@ -283,32 +205,8 @@ export default function Hero() {
         opacity: heroOpacity,
       }}
     >
-      {/* Infrared wash overlay */}
-      <div
-        aria-hidden="true"
-        style={{
-          position: 'absolute',
-          inset: 0,
-          background: 'var(--gradient-infrared-wash)',
-          opacity: 0.7,
-          pointerEvents: 'none',
-          zIndex: 1,
-        }}
-      />
-
-      {/* Canvas particle mesh */}
-      <canvas
-        ref={canvasRef}
-        aria-hidden="true"
-        style={{
-          position: 'absolute',
-          inset: 0,
-          width: '100%',
-          height: '100%',
-          zIndex: 2,
-          pointerEvents: 'none',
-        }}
-      />
+      {/* Ambient background layers */}
+      <HeroAmbient />
 
       {/* Content */}
       <motion.div
@@ -360,7 +258,7 @@ export default function Hero() {
           }}
         >
           <MagneticButton shouldReduceMotion={shouldReduceMotion ?? false}>
-            <Button variant="primary" size="lg" href="/approach">
+            <Button variant="primary" size="lg" href="/#how-we-work">
               See How We Work
             </Button>
           </MagneticButton>

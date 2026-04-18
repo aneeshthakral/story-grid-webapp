@@ -110,6 +110,8 @@ export default function Button({
     el.style.color = base.color as string
   }
 
+  const resolvedClassName = `${variant === 'solid' ? 'btn-ember ' : ''}${className}`
+
   if (href) {
     const isExternal = href.startsWith('http') || href.startsWith('mailto:')
     return (
@@ -118,7 +120,7 @@ export default function Button({
         target={isExternal && !href.startsWith('mailto:') ? '_blank' : undefined}
         rel={isExternal && !href.startsWith('mailto:') ? 'noopener noreferrer' : undefined}
         style={baseStyle}
-        className={className}
+        className={resolvedClassName}
         data-interactive
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
@@ -133,7 +135,7 @@ export default function Button({
     <motion.button
       type={type}
       style={baseStyle}
-      className={className}
+      className={resolvedClassName}
       onClick={disabled ? undefined : onClick}
       disabled={disabled}
       data-interactive

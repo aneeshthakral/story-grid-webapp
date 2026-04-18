@@ -78,6 +78,7 @@ function ServiceBlockWrapper({
 
   return (
     <div
+      className="card-hover"
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
       style={{
@@ -100,21 +101,7 @@ function ServiceBlockWrapper({
 export default function WhatWeBuild() {
   const shouldReduceMotion = useReducedMotion()
 
-  // Expo ease cubic-bezier for service block entrances
-  const expoEase = [0.16, 1, 0.3, 1] as const
 
-  const makeBlockVariants = (direction: 'left' | 'right') =>
-    shouldReduceMotion
-      ? { hidden: { opacity: 1 }, visible: { opacity: 1 } }
-      : {
-          hidden: { opacity: 0, x: direction === 'left' ? -40 : 40, scale: 0.96 },
-          visible: {
-            opacity: 1,
-            x: 0,
-            scale: 1.0,
-            transition: { duration: 0.7, ease: expoEase },
-          },
-        }
 
   return (
     <section
@@ -152,7 +139,7 @@ export default function WhatWeBuild() {
           <h2
             style={{
               fontFamily: 'var(--font-family-display)',
-              fontSize: 'clamp(36px, 5.5vw, 64px)',
+              fontSize: 'var(--text-section)',
               color: '#F2EAE4',
               lineHeight: 1.05,
               marginBottom: '16px',
@@ -170,19 +157,16 @@ export default function WhatWeBuild() {
 
         {/* Service blocks */}
         <div style={{ display: 'flex', flexDirection: 'column' }}>
-          {services.map((service, i) => {
-            const variants = makeBlockVariants(service.direction)
-            return (
-              <motion.div
+          {services.map((service, i) => (
+              <ScrollReveal
                 key={service.number}
-                variants={variants}
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true, margin: '-80px' }}
-                style={{
-                  borderBottom: i < services.length - 1 ? '1px solid #1E181C' : 'none',
-                }}
+                delay={i * 0.08}
               >
+                <div
+                  style={{
+                    borderBottom: i < services.length - 1 ? '1px solid #1E181C' : 'none',
+                  }}
+                >
                 <ServiceBlockWrapper tint={service.tint}>
                   <div
                     style={{
@@ -241,9 +225,9 @@ export default function WhatWeBuild() {
                     />
                   </div>
                 </ServiceBlockWrapper>
-              </motion.div>
-            )
-          })}
+                </div>
+              </ScrollReveal>
+          ))}
         </div>
 
       </div>
