@@ -8,71 +8,54 @@ import { motion, useReducedMotion } from 'framer-motion'
 import SectionLabel from '@/components/ui/SectionLabel'
 import ScrollReveal from '@/components/ui/ScrollReveal'
 import Button from '@/components/ui/Button'
-import PricingCard, { type PricingPlan } from '@/components/ui/PricingCard'
+import Tag from '@/components/ui/Tag'
+import { tiers } from '@/data/pricing'
+import { useCurrency } from '@/hooks/useCurrency'
+import { formatPrice, type TierPricing } from '@/lib/currency'
 
-const plans: PricingPlan[] = [
+const addOns = [
   {
-    name: 'Story Starter',
-    price: '$2,500',
-    per: '/ month',
-    commitment: '3-MONTH MINIMUM',
-    subtitle: 'For early-stage founders who need a clear, ownable narrative before they scale.',
-    deliverables: [
-      'Brand narrative document: core story, positioning, messaging pillars',
-      'LinkedIn content system: 8 posts/month, ghostwritten in your voice',
-      'Founder profile audit and full rewrite',
-      'Monthly strategy call (60 min)',
-      'Dedicated Slack channel, 48-hour response',
-    ],
-    ctaText: 'Email Aneesh',
-    ctaHref: 'mailto:hello@storygrid.co',
+    name: 'Brand Narrative Sprint',
+    pricing: { INR: 29950, USD: 399 } as TierPricing,
+    detail: '2-week intensive',
+    description:
+      'Core story, messaging pillars, content framework. Built for founders pre-launch, pre-fundraise, or mid-pivot.',
   },
   {
-    name: 'Narrative Engine',
-    price: '$4,900',
-    per: '/ month',
-    commitment: '3-MONTH MINIMUM',
-    subtitle: 'For growth-stage companies building a content system that compounds over time.',
-    deliverables: [
-      'Full narrative strategy and brand story framework',
-      'LinkedIn content system: 16 posts/month (founder + company page)',
-      'AI-augmented content production pipeline',
-      'Weekly strategy calls (30 min)',
-      'Founder brand development: LinkedIn + long-form thought leadership',
-      'One designed content format per month (carousel, infographic, or newsletter)',
-      'Monthly performance report with reach and engagement data',
-    ],
-    ctaText: 'Start Your Engine',
-    ctaHref: 'mailto:hello@storygrid.co',
-  },
-  {
-    name: 'Scale',
-    price: '$8,500',
-    per: '/ month',
-    commitment: '6-MONTH MINIMUM',
-    subtitle: 'For growth-stage companies ready to own their narrative category.',
-    deliverables: [
-      'Full narrative audit and multi-channel rebuild',
-      '24 posts/month across LinkedIn, Instagram, and long-form',
-      'AI integration into existing marketing stack',
-      'Dedicated narrative strategist, single point of contact',
-      'Executive and founder brand programs (up to 2 founders)',
-      'Campaign and launch narrative support',
-      'Bi-weekly strategy sessions',
-      'Quarterly narrative review and system evolution',
-    ],
-    ctaText: 'Start Scaling',
-    ctaHref: 'mailto:hello@storygrid.co',
+    name: 'Brand Story Audit',
+    pricing: { INR: 9950, USD: 149 } as TierPricing,
+    detail: '5-day written report',
+    description:
+      'A standalone audit of your current narrative, messaging gaps, and positioning. Applicable as credit toward any retainer.',
   },
 ]
 
-// Stagger container: cards enter with scale 0.97→1.0 + opacity
+// Checkmark icon — inline SVG, 16px, blaze color
+function CheckIcon() {
+  return (
+    <svg
+      width="16"
+      height="16"
+      viewBox="0 0 16 16"
+      fill="none"
+      aria-hidden="true"
+      style={{ flexShrink: 0, marginTop: '2px' }}
+    >
+      <path
+        d="M3 8L6.5 11.5L13 4.5"
+        stroke="#E8451A"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  )
+}
+
 const containerVariants = {
   hidden: {},
   visible: {
-    transition: {
-      staggerChildren: 0.08,
-    },
+    transition: { staggerChildren: 0.08 },
   },
 }
 
@@ -92,6 +75,7 @@ const cardVariantsReduced = {
 
 export default function Pricing() {
   const shouldReduceMotion = useReducedMotion()
+  const { currency, setCurrency, mounted } = useCurrency()
   const variants = shouldReduceMotion ? cardVariantsReduced : cardVariants
 
   return (
@@ -130,15 +114,53 @@ export default function Pricing() {
               fontFamily: 'var(--font-family-body)',
               fontSize: '18px',
               color: '#C4A08A',
-              marginBottom: '56px',
+              marginBottom: '32px',
               maxWidth: '520px',
             }}
           >
-            Every engagement starts with strategy. The tier determines the scale.
+            Every engagement starts with strategy. The tier determines scale.
           </p>
         </ScrollReveal>
 
-        {/* Three pricing cards — stagger + scale entrance */}
+        {/* Currency toggle */}
+        {mounted && (
+          <ScrollReveal>
+            <div
+              style={{
+                display: 'inline-flex',
+                gap: '0',
+                marginBottom: '48px',
+                borderRadius: '6px',
+                overflow: 'hidden',
+                border: '1px solid #1E181C',
+              }}
+            >
+              {(['INR', 'USD'] as const).map((c) => (
+                <button
+                  key={c}
+                  onClick={() => setCurrency(c)}
+                  style={{
+                    fontFamily: 'var(--font-family-condensed)',
+                    fontSize: '13px',
+                    fontWeight: 600,
+                    textTransform: 'uppercase',
+                    letterSpacing: '0.08em',
+                    padding: '10px 24px',
+                    border: 'none',
+                    cursor: 'pointer',
+                    background: currency === c ? '#E8451A' : '#141012',
+                    color: currency === c ? '#080507' : '#887060',
+                    transition: 'background 200ms ease, color 200ms ease',
+                  }}
+                >
+                  {c === 'INR' ? '₹ INR' : '$ USD'}
+                </button>
+              ))}
+            </div>
+          </ScrollReveal>
+        )}
+
+        {/* Three tier cards */}
         <motion.div
           variants={shouldReduceMotion ? {} : containerVariants}
           initial="hidden"
@@ -147,16 +169,15 @@ export default function Pricing() {
           style={{
             display: 'grid',
             gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
-            gap: '24px',
+            gap: '32px',
             alignItems: 'start',
-            marginBottom: '48px',
           }}
         >
-          {plans.map((plan) => {
-            const isFeatured = plan.name === 'Narrative Engine'
+          {tiers.map((tier) => {
+            const isFeatured = tier.highlighted === true
             return (
               <motion.div
-                key={plan.name}
+                key={tier.id}
                 variants={variants}
                 whileHover={
                   !isFeatured && !shouldReduceMotion
@@ -165,214 +186,292 @@ export default function Pricing() {
                 }
                 style={{ height: '100%' }}
               >
-                <PricingCard plan={plan} featured={isFeatured} />
+                <div
+                  style={{
+                    background: isFeatured
+                      ? 'var(--gradient-blaze-fade), #141012'
+                      : '#141012',
+                    border: isFeatured
+                      ? '2px solid #E8451A'
+                      : '1px solid #1E181C',
+                    padding: '32px',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    height: '100%',
+                    position: 'relative',
+                  }}
+                >
+                  {/* Featured badge */}
+                  {isFeatured && (
+                    <div style={{ marginBottom: '16px' }}>
+                      <Tag variant="brand">MOST CHOSEN</Tag>
+                    </div>
+                  )}
+
+                  {/* Tier name */}
+                  <h3
+                    style={{
+                      fontFamily: 'var(--font-family-display)',
+                      fontSize: '32px',
+                      color: '#F2EAE4',
+                      marginBottom: '8px',
+                    }}
+                  >
+                    {tier.name}
+                  </h3>
+
+                  {/* Price */}
+                  <div
+                    style={{
+                      display: 'flex',
+                      alignItems: 'baseline',
+                      gap: '6px',
+                      marginBottom: '4px',
+                    }}
+                  >
+                    <span
+                      className="tabular-nums"
+                      style={{
+                        fontFamily: 'var(--font-family-display)',
+                        fontSize: '56px',
+                        color: '#F2EAE4',
+                        lineHeight: 1,
+                      }}
+                    >
+                      {formatPrice(tier.pricing, currency)}
+                    </span>
+                    <span
+                      style={{
+                        fontFamily: 'var(--font-family-condensed)',
+                        fontSize: '13px',
+                        color: '#887060',
+                        textTransform: 'uppercase',
+                      }}
+                    >
+                      / month
+                    </span>
+                  </div>
+
+                  {/* Commitment */}
+                  <p
+                    style={{
+                      fontFamily: 'var(--font-family-condensed)',
+                      fontSize: '11px',
+                      color: '#887060',
+                      textTransform: 'uppercase',
+                      letterSpacing: '0.1em',
+                      marginBottom: '16px',
+                    }}
+                  >
+                    {tier.minCommitment}
+                  </p>
+
+                  {/* Divider */}
+                  <div
+                    style={{
+                      height: '1px',
+                      background: '#1E181C',
+                      marginBottom: '16px',
+                    }}
+                  />
+
+                  {/* Description */}
+                  <p
+                    style={{
+                      fontFamily: 'var(--font-family-body)',
+                      fontSize: '16px',
+                      color: '#C4A08A',
+                      lineHeight: 1.65,
+                      marginBottom: '24px',
+                    }}
+                  >
+                    {tier.description}
+                  </p>
+
+                  {/* Deliverables */}
+                  <ul
+                    style={{
+                      listStyle: 'none',
+                      padding: 0,
+                      margin: 0,
+                      display: 'flex',
+                      flexDirection: 'column',
+                      gap: '10px',
+                      flex: 1,
+                      marginBottom: '32px',
+                    }}
+                  >
+                    {tier.deliverables.map((item, i) => (
+                      <li
+                        key={i}
+                        style={{
+                          display: 'flex',
+                          alignItems: 'flex-start',
+                          gap: '10px',
+                        }}
+                      >
+                        <CheckIcon />
+                        <span
+                          style={{
+                            fontFamily: 'var(--font-family-body)',
+                            fontSize: '15px',
+                            color: '#C4A08A',
+                            lineHeight: 1.55,
+                          }}
+                        >
+                          {item}
+                        </span>
+                      </li>
+                    ))}
+                  </ul>
+
+                  {/* CTA */}
+                  <Button
+                    variant={isFeatured ? 'solid' : 'primary'}
+                    href={tier.ctaHref}
+                    style={{ width: '100%', justifyContent: 'center' } as React.CSSProperties}
+                  >
+                    {tier.ctaLabel}
+                  </Button>
+                </div>
               </motion.div>
             )
           })}
         </motion.div>
 
-        {/* Enterprise block */}
-        <ScrollReveal delay={0.1}>
-          <div
-            style={{
-              backgroundColor: '#1E181C',
-              padding: '40px',
-              borderRadius: '4px',
-              display: 'flex',
-              flexWrap: 'wrap',
-              gap: '32px',
-              justifyContent: 'space-between',
-              alignItems: 'flex-start',
-              marginBottom: '32px',
-            }}
-          >
-            <div style={{ flex: '1', minWidth: '280px' }}>
-              <h3
-                style={{
-                  fontFamily: 'var(--font-family-display)',
-                  fontSize: '40px',
-                  color: '#F2EAE4',
-                  marginBottom: '8px',
-                }}
-              >
-                Enterprise
-              </h3>
-              <p
-                style={{
-                  fontFamily: 'var(--font-family-body)',
-                  fontSize: '17px',
-                  color: '#C4A08A',
-                  marginBottom: '8px',
-                }}
-              >
-                For corporations building narrative at organisational scale.
-              </p>
-              <p
-                style={{
-                  fontFamily: 'var(--font-family-condensed)',
-                  fontSize: '13px',
-                  color: '#887060',
-                  textTransform: 'uppercase',
-                  letterSpacing: '0.1em',
-                  marginBottom: '16px',
-                }}
-              >
-                Custom · Starting at $15,000 / month · 6-month minimum
-              </p>
-              <div
-                style={{
-                  display: 'flex',
-                  flexWrap: 'wrap',
-                  gap: '6px 20px',
-                }}
-              >
-                {[
-                  'Multi-team narrative programs',
-                  'Multi-channel content at scale',
-                  'AI stack integration',
-                  'Dedicated strategist',
-                  'Quarterly reviews',
-                ].map((item) => (
-                  <span
-                    key={item}
-                    style={{
-                      fontFamily: 'var(--font-family-body)',
-                      fontSize: '14px',
-                      color: '#C4A08A',
-                    }}
-                  >
-                    {item}
-                  </span>
-                ))}
-              </div>
-            </div>
-            <div style={{ display: 'flex', alignItems: 'center' }}>
-              <Button variant="primary" href="mailto:hello@storygrid.co">
-                Email Aneesh
-              </Button>
-            </div>
-          </div>
-        </ScrollReveal>
-
-        {/* One-time engagements */}
+        {/* Add-ons */}
         <div
           style={{
+            marginTop: '64px',
+            paddingTop: '48px',
+            borderTop: '1px solid rgba(232, 69, 26, 0.1)',
             display: 'grid',
             gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
             gap: '24px',
           }}
         >
-          {/* Brand Narrative Sprint */}
-          <ScrollReveal delay={0.05}>
-            <div
-              style={{
-                backgroundColor: '#141012',
-                border: '1px solid #1E181C',
-                padding: '32px',
-                height: '100%',
-                display: 'flex',
-                flexDirection: 'column',
-              }}
-            >
-              <SectionLabel color="#D4912A">No Retainer Required</SectionLabel>
-              <h3
+          {addOns.map((addOn) => (
+            <ScrollReveal key={addOn.name} delay={0.05}>
+              <div
                 style={{
-                  fontFamily: 'var(--font-family-display)',
-                  fontSize: '40px',
-                  color: '#F2EAE4',
-                  marginBottom: '8px',
-                  lineHeight: 1.05,
+                  backgroundColor: '#141012',
+                  border: '1px solid #1E181C',
+                  padding: '32px',
+                  height: '100%',
+                  display: 'flex',
+                  flexDirection: 'column',
                 }}
               >
-                Brand Narrative Sprint
-              </h3>
-              <p
-                style={{
-                  fontFamily: 'var(--font-family-condensed)',
-                  fontSize: '20px',
-                  color: '#E8451A',
-                  marginBottom: '16px',
-                  textTransform: 'uppercase',
-                  letterSpacing: '0.04em',
-                }}
-              >
-                $2,000
-              </p>
-              <p
-                style={{
-                  fontFamily: 'var(--font-family-body)',
-                  fontSize: '16px',
-                  color: '#C4A08A',
-                  lineHeight: 1.7,
-                  flex: 1,
-                  marginBottom: '28px',
-                }}
-              >
-                A 2-week intensive. Core story, messaging pillars, content framework. Built
-                for founders pre-launch, pre-fundraise, or mid-pivot.
-              </p>
-              <Button variant="primary" href="mailto:hello@storygrid.co">
-                Book the Sprint
-              </Button>
-            </div>
-          </ScrollReveal>
-
-          {/* Brand Story Audit */}
-          <ScrollReveal delay={0.1}>
-            <div
-              style={{
-                backgroundColor: '#141012',
-                border: '1px solid #1E181C',
-                padding: '32px',
-                height: '100%',
-                display: 'flex',
-                flexDirection: 'column',
-              }}
-            >
-              <SectionLabel color="#D4912A">Start Here</SectionLabel>
-              <h3
-                style={{
-                  fontFamily: 'var(--font-family-display)',
-                  fontSize: '40px',
-                  color: '#F2EAE4',
-                  marginBottom: '8px',
-                  lineHeight: 1.05,
-                }}
-              >
-                Brand Story Audit
-              </h3>
-              <p
-                style={{
-                  fontFamily: 'var(--font-family-condensed)',
-                  fontSize: '20px',
-                  color: '#E8451A',
-                  marginBottom: '16px',
-                  textTransform: 'uppercase',
-                  letterSpacing: '0.04em',
-                }}
-              >
-                $750
-              </p>
-              <p
-                style={{
-                  fontFamily: 'var(--font-family-body)',
-                  fontSize: '16px',
-                  color: '#C4A08A',
-                  lineHeight: 1.7,
-                  flex: 1,
-                  marginBottom: '28px',
-                }}
-              >
-                A 5-day standalone audit of your current narrative, messaging gaps, and
-                positioning. Delivered as a written report. Applicable as credit toward
-                any retainer.
-              </p>
-              <Button variant="primary" href="mailto:hello@storygrid.co">
-                Book the Audit
-              </Button>
-            </div>
-          </ScrollReveal>
+                <SectionLabel color="#D4912A">One-Time</SectionLabel>
+                <h3
+                  style={{
+                    fontFamily: 'var(--font-family-display)',
+                    fontSize: '32px',
+                    color: '#F2EAE4',
+                    marginBottom: '8px',
+                    lineHeight: 1.05,
+                  }}
+                >
+                  {addOn.name}
+                </h3>
+                <p
+                  style={{
+                    fontFamily: 'var(--font-family-condensed)',
+                    fontSize: '20px',
+                    color: '#E8451A',
+                    marginBottom: '4px',
+                    textTransform: 'uppercase',
+                    letterSpacing: '0.04em',
+                  }}
+                  className="tabular-nums"
+                >
+                  {formatPrice(addOn.pricing, currency)}
+                </p>
+                <p
+                  style={{
+                    fontFamily: 'var(--font-family-condensed)',
+                    fontSize: '12px',
+                    color: '#887060',
+                    textTransform: 'uppercase',
+                    letterSpacing: '0.1em',
+                    marginBottom: '16px',
+                  }}
+                >
+                  {addOn.detail}
+                </p>
+                <p
+                  style={{
+                    fontFamily: 'var(--font-family-body)',
+                    fontSize: '16px',
+                    color: '#C4A08A',
+                    lineHeight: 1.7,
+                    flex: 1,
+                    marginBottom: '28px',
+                  }}
+                >
+                  {addOn.description}
+                </p>
+                <a
+                  href="mailto:hello@storygrid.co"
+                  data-interactive
+                  style={{
+                    fontFamily: 'var(--font-family-condensed)',
+                    fontSize: '14px',
+                    fontWeight: 600,
+                    textTransform: 'uppercase',
+                    letterSpacing: '0.06em',
+                    color: '#E8451A',
+                    textDecoration: 'none',
+                    transition: 'color 200ms ease',
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.color = '#FF5C2B'
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.color = '#E8451A'
+                  }}
+                >
+                  Email to book &rarr;
+                </a>
+              </div>
+            </ScrollReveal>
+          ))}
         </div>
+
+        {/* Enterprise footer line */}
+        <ScrollReveal delay={0.1}>
+          <p
+            style={{
+              fontFamily: 'var(--font-family-body)',
+              fontSize: '15px',
+              color: '#887060',
+              textAlign: 'center',
+              marginTop: '48px',
+              lineHeight: 1.6,
+            }}
+          >
+            Running a corporate narrative program at scale?{' '}
+            <a
+              href="mailto:hello@storygrid.co"
+              data-interactive
+              style={{
+                color: '#C4A08A',
+                textDecoration: 'underline',
+                textUnderlineOffset: '3px',
+                transition: 'color 200ms ease',
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.color = '#F2EAE4'
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.color = '#C4A08A'
+              }}
+            >
+              Email hello@storygrid.co
+            </a>{' '}
+            for enterprise engagements.
+          </p>
+        </ScrollReveal>
       </div>
     </section>
   )
