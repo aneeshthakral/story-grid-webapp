@@ -9,7 +9,7 @@
 
 # PART I -- EXECUTIVE SUMMARY
 
-StoryGrid & Co. is an AI-first narrative strategy firm founded by Aneesh Thakral, a B2B sales professional with 8+ years of enterprise experience and $5M+ in closed revenue. The firm occupies a differentiated position at the intersection of AI-augmented content production, founder-led narrative architecture, and systems-driven execution -- a category that sits between traditional agencies, content studios, and ghostwriting services but belongs to none of them.
+StoryGrid & Co. is an AI-first narrative strategy firm founded by Aneesh Thakral, a B2B sales professional with 8+ years of enterprise experience and $6M+ in closed revenue. The firm occupies a differentiated position at the intersection of AI-augmented content production, founder-led narrative architecture, and systems-driven execution -- a category that sits between traditional agencies, content studios, and ghostwriting services but belongs to none of them.
 
 This docket establishes two deliverables:
 
@@ -71,13 +71,13 @@ The "Compound Story Effect" is StoryGrid's proprietary concept -- the idea that 
 
 ## 2.4 Founder Narrative (Aneesh Thakral)
 
-Aneesh Thakral is not a marketer who learned sales. He is a B2B sales professional who understood, through 8+ years of enterprise selling and $5M+ in closed revenue, that narrative is the invisible infrastructure behind every deal.
+Aneesh Thakral is not a marketer who learned sales. He is a B2B sales professional who understood, through 8+ years of enterprise selling and $6M+ in closed revenue, that narrative is the invisible infrastructure behind every deal.
 
 **Origin story:** Aneesh's fascination with storytelling started in B2B sales -- crafting proposals, presenting IT solutions to foreign markets, and learning that setting the narrative right determined outcomes more than features or pricing ever could. When AI entered the picture (ChatGPT, Gemini), the convergence of his two core fascinations -- AI and storytelling -- became StoryGrid & Co. He carries a tattoo on his forearm of a robot reading a book: AI learning from narrative, the future learning from the past.
 
 **Credibility markers:**
 - 8+ years enterprise B2B sales experience
-- $5M+ in closed revenue
+- $6M+ in closed revenue
 - 50+ founders served (advisory/strategy capacity)
 - AI-first practitioner (not a reporter or enthusiast -- a builder)
 
@@ -247,7 +247,7 @@ Use the BANT-N framework (Budget, Authority, Need, Timeline + Narrative Readines
 
 | Factor | Weight | What They Evaluate |
 |--------|--------|-------------------|
-| **Founder credibility** | 30% | Does the agency founder have real experience, or just marketing theory? Aneesh's $5M+ sales background is the differentiator here |
+| **Founder credibility** | 30% | Does the agency founder have real experience, or just marketing theory? Aneesh's $6M+ sales background is the differentiator here |
 | **Quality of thinking** | 25% | Is the strategy smart? Does the discovery call reveal insights about their business they had not considered? |
 | **Proof of work** | 20% | Case studies, before/after metrics, example content, Aneesh's own LinkedIn as proof |
 | **Speed to value** | 15% | Can we start seeing output in week 1, not month 3? |
@@ -332,7 +332,7 @@ StoryGrid bridges the gap between high-strategy brand agencies (too expensive, t
 
 ## 4.3 StoryGrid's Moat
 
-**1. Practitioner credibility.** Aneesh has $5M+ in closed B2B revenue. He is not a marketer telling founders how to sell -- he is a sales professional who understands narrative as a sales tool. This is rare and impossible to fake.
+**1. Practitioner credibility.** Aneesh has $6M+ in closed B2B revenue. He is not a marketer telling founders how to sell -- he is a sales professional who understands narrative as a sales tool. This is rare and impossible to fake.
 
 **2. AI-first production model.** AI augmentation is embedded in the methodology, not bolted on. This delivers 2-3x the output speed of traditional agencies at equivalent or higher quality, because the AI handles research, structuring, and drafting while the human layer handles strategy, voice, and refinement.
 

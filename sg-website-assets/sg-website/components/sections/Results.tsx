@@ -9,7 +9,7 @@ import Button from '@/components/ui/Button'
 
 const stats = [
   {
-    value: 5,
+    value: 6,
     prefix: '$',
     suffix: 'M+',
     label: 'in closed enterprise deals attributed to narrative-led positioning',
