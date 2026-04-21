@@ -74,7 +74,9 @@
       "mcp__claude_ai_Vercel__get_deployment_build_logs",
       "mcp__claude_ai_Vercel__deploy_to_vercel",
       "mcp__claude_ai_Vercel__get_deployment",
-      "mcp__claude_ai_Vercel__get_runtime_logs"
+      "mcp__claude_ai_Vercel__get_runtime_logs",
+      "Bash(grep -r \"ember\" \"/Users/aneeshthakral/Downloads/Projects.md/StoryGrid & Co./sg-website-assets/sg-website/tailwind.config\"*)",
+      "Bash(claude config:*)"
     ]
   },
   "model": "claude-opus-4-6",
