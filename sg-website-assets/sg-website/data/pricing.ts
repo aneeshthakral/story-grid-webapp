@@ -16,7 +16,7 @@ export const tiers: Tier[] = [
   {
     id: 'architecture',
     name: 'Narrative Architecture',
-    pricing: { INR: 49950, USD: 599 },
+    pricing: { INR: 49950, USD: 599, EUR: 549 },
     minCommitment: '3-month minimum',
     description:
       'For early-stage founders who need a clear, ownable narrative before they scale content volume.',
@@ -34,7 +34,7 @@ export const tiers: Tier[] = [
   {
     id: 'engine',
     name: 'Narrative Engine',
-    pricing: { INR: 69950, USD: 849 },
+    pricing: { INR: 69950, USD: 849, EUR: 799 },
     minCommitment: '3-month minimum',
     highlighted: true,
     description:
@@ -54,7 +54,7 @@ export const tiers: Tier[] = [
   {
     id: 'full-system',
     name: 'Full Narrative System',
-    pricing: { INR: 99950, USD: 1199 },
+    pricing: { INR: 99950, USD: 1199, EUR: 1099 },
     minCommitment: '6-month minimum',
     description:
       'For growth-stage companies ready to own their narrative category across every channel they show up in.',

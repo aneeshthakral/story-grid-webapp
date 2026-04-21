@@ -35,8 +35,8 @@ const variantBase: Record<ButtonVariant, React.CSSProperties> = {
     background: 'transparent',
   },
   ai: {
-    color: '#CCFF00',
-    border: '1px solid #CCFF00',
+    color: '#E85D1A',
+    border: '1px solid rgba(232, 93, 26, 0.3)',
     background: 'transparent',
   },
   solid: {
@@ -49,7 +49,7 @@ const variantBase: Record<ButtonVariant, React.CSSProperties> = {
 const variantHover: Record<ButtonVariant, React.CSSProperties> = {
   primary: { background: '#E8451A', color: '#080507' },
   ghost: { background: '#1E181C', color: '#F2EAE4' },
-  ai: { background: '#CCFF00', color: '#080507' },
+  ai: { background: '#E85D1A', color: '#080507' },
   solid: { background: '#FF5C2B', color: '#080507' },
 }
 

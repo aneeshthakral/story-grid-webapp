@@ -16,14 +16,14 @@ import { formatPrice, type TierPricing } from '@/lib/currency'
 const addOns = [
   {
     name: 'Brand Narrative Sprint',
-    pricing: { INR: 29950, USD: 399 } as TierPricing,
+    pricing: { INR: 29950, USD: 399, EUR: 369 } as TierPricing,
     detail: '2-week intensive',
     description:
       'Core story, messaging pillars, content framework. Built for founders pre-launch, pre-fundraise, or mid-pivot.',
   },
   {
     name: 'Brand Story Audit',
-    pricing: { INR: 9950, USD: 149 } as TierPricing,
+    pricing: { INR: 9950, USD: 149, EUR: 139 } as TierPricing,
     detail: '5-day written report',
     description:
       'A standalone audit of your current narrative, messaging gaps, and positioning. Applicable as credit toward any retainer.',
@@ -135,7 +135,7 @@ export default function Pricing() {
                 border: '1px solid #1E181C',
               }}
             >
-              {(['INR', 'USD'] as const).map((c) => (
+              {(['INR', 'EUR', 'USD'] as const).map((c) => (
                 <button
                   key={c}
                   onClick={() => setCurrency(c)}
@@ -153,7 +153,7 @@ export default function Pricing() {
                     transition: 'background 200ms ease, color 200ms ease',
                   }}
                 >
-                  {c === 'INR' ? '₹ INR' : '$ USD'}
+                  {c === 'INR' ? '₹ INR' : c === 'EUR' ? '€ EUR' : '$ USD'}
                 </button>
               ))}
             </div>

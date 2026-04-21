@@ -84,29 +84,18 @@ export default function Founder() {
             viewport={{ once: true, margin: '-80px' }}
             style={{ display: 'flex', justifyContent: 'center' }}
           >
-            {/* Founder photo — dual-ring via box-shadow */}
-            <div
-              style={{
-                width: '280px',
-                height: '280px',
-                borderRadius: '50%',
-                overflow: 'hidden',
-                boxShadow: '0 0 0 2px #E8451A, 0 0 0 6px #080507, 0 0 0 8px #D4912A',
-              }}
-            >
-              <Image
-                src="/images/founder.jpg"
-                alt="Aneesh Thakral, Founder of StoryGrid & Co."
-                width={280}
-                height={280}
-                loading="lazy"
-                sizes="280px"
-                style={{
-                  objectFit: 'cover',
-                  objectPosition: 'center top',
-                  borderRadius: '50%',
-                }}
-              />
+            {/* Gradient ring wrapper */}
+            <div className="relative p-[2px] rounded-full bg-gradient-to-br from-blaze via-blaze/40 to-blaze/20 flex-shrink-0">
+              {/* Circular image container */}
+              <div className="relative w-56 h-56 rounded-full overflow-hidden flex-shrink-0">
+                <Image
+                  src="/images/founder.jpg"
+                  alt="Aneesh Thakral, Founder of StoryGrid & Co."
+                  fill={true}
+                  sizes="224px"
+                  style={{ objectFit: 'cover', objectPosition: '52% 18%' }}
+                />
+              </div>
             </div>
           </motion.div>
 
